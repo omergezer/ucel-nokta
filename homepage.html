@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Araba Yedek Parça Mağazası</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+        .header {
+            background-color: #222;
+            color: #fff;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        .header .logo {
+            font-size: 28px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+        .header .logo img {
+            height: 50px;
+            margin-right: 15px;
+        }
+        .hero {
+            width: 100%;
+            height: 450px;
+            background: url('slider-1.webp') no-repeat center;
+            background-size: cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+            font-size: 32px;
+            font-weight: bold;
+        }
+        .search-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+            background-color: #fff;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            width: 60%;
+            margin: -50px auto 20px auto;
+            position: relative;
+            z-index: 10;
+        }
+        .search-container input {
+            flex: 1;
+            padding: 15px;
+            font-size: 18px;
+            border: 2px solid #ddd;
+            border-radius: 10px 0 0 10px;
+            outline: none;
+            transition: all 0.3s;
+        }
+        .search-container input:focus {
+            border-color: #ff9800;
+        }
+        .search-container button {
+            padding: 15px 25px;
+            font-size: 18px;
+            background-color: #ff9800;
+            color: #fff;
+            border: 2px solid #ff9800;
+            border-left: none;
+            border-radius: 0 10px 10px 0;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .search-container button:hover {
+            background-color: #f57c00;
+        }
+        .result-container {
+            display: none;
+            padding: 30px;
+            text-align: center;
+        }
+        .product-card {
+            background: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px auto;
+            width: 300px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        .product-card img {
+            width: 100%;
+            border-radius: 10px;
+        }
+        .footer {
+            background-color: #222;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">
+            <img src="logo.png" alt="Logo">
+            Araba Yedek Parça
+        </div>
+    </div>
+    <div class="hero">En Kaliteli Yedek Parçalar Burada!</div>
+    <div class="search-container">
+        <input type="text" id="searchInput" placeholder="Parça kodunu giriniz...">
+        <button onclick="searchProduct()"><i class="fas fa-search"></i> Ara</button>
+    </div>
+    <div class="result-container" id="resultContainer"></div>
+    <div class="footer">&copy; 2025 Araba Yedek Parça. Tüm hakları saklıdır.</div>
+    <script>
+        function searchProduct() {
+            const productCode = document.getElementById('searchInput').value;
+            const resultContainer = document.getElementById('resultContainer');
+            const products = {
+                '001': { name: 'Şanzıman Dişlisi', price: '500 TL', image: 'A_realistic,_high-quality_image_of_a_car_transmiss.webp' },
+                '002': { name: 'Motor Takozu', price: '300 TL', image: 'A_realistic,_high-quality_image_of_an_engine_mount.webp' },
+                '003': { name: 'Alternatör', price: '1200 TL', image: 'A_realistic,_high-quality_image_of_a_car_alternato.webp' },
+                '004': { name: 'Turbo Şarj', price: '2500 TL', image: 'A_realistic,_high-quality_image_of_a_car_turbochar.webp' },
+                '005': { name: 'Radyatör', price: '750 TL', image: 'A_realistic,_high-quality_image_of_a_car_radiator.webp' },
+                '006': { name: 'Yakıt Enjektörü', price: '600 TL', image: 'A_realistic,_high-quality_image_of_a_car_fuel_inje.webp' },
+                '007': { name: 'Triger Kayışı', price: '400 TL', image: 'A_realistic,_high-quality_image_of_a_car_timing_be.webp' },
+                '008': { name: 'Su Pompası', price: '800 TL', image: 'A_realistic,_high-quality_image_of_a_car_water_pum.webp' },
+                '009': { name: 'Yağ Filtresi', price: '150 TL', image: 'A_realistic,_high-quality_image_of_a_car_oil_filte.webp' },
+                '010': { name: 'Fren Diski', price: '900 TL', image: 'A_realistic,_high-quality_image_of_a_car_brake_dis.webp' }
+            };
+            if (products[productCode]) {
+                const product = products[productCode];
+                resultContainer.innerHTML = `
+                    <div class="product-card">
+                        <img src="${product.image}" alt="${product.name}">
+                        <h3>${product.name}</h3>
+                        <p>Fiyat: ${product.price}</p>
+                    </div>
+                `;
+                resultContainer.style.display = 'block';
+            } else {
+                resultContainer.innerHTML = `<p class="no-stock">Ürün bulunamadı!</p>`;
+                resultContainer.style.display = 'block';
+            }
+        }
+    </script>
+</body>
+</html>
